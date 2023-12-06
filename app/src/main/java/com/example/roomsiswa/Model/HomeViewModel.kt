@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 
-class HomeViewModel(private val RepositoriSiswa: RepositoriSiswa, it: Any): ViewModel() {
+class HomeViewModel(private val RepositoriSiswa: RepositoriSiswa): ViewModel() {
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L

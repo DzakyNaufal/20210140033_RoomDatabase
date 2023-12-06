@@ -1,6 +1,5 @@
 package com.example.roomsiswa.ui.theme.Halaman
 
-import androidx.compose.foundation.FixedMotionDurationScale.key
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Phone
@@ -37,6 +37,7 @@ import com.example.roomsiswa.Model.HomeViewModel
 import com.example.roomsiswa.Model.PenyediaViewModel
 import com.example.roomsiswa.R
 import com.example.roomsiswa.navigasi.DestinasiNavigasi
+import com.example.roomsiswa.navigasi.SiswaTopAppBar
 import com.example.roomsiswa.ui.theme.Halaman.DestinasiEntry.titleRes
 
 object DestinasiHome : DestinasiNavigasi {
@@ -57,8 +58,8 @@ fun HomeScreen(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             SiswaTopAppBar(
-                title = stringResource(DestinasiHome,titleRes),
-                canNavigetback = false,
+                title = stringResource(DestinasiHome.titleRes),
+                canNavigateBack = false,
                 scrollBehavior = scrollBehavior
             )
         },

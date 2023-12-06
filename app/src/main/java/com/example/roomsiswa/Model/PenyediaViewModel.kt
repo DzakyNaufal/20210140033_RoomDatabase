@@ -12,10 +12,10 @@ object PenyediaViewModel {
     val Factory =  viewModelFactory {
 
         initializer {
-            HomeViewModel(AplikasiSiswa().container.RepositoriSiswa)
+            HomeViewModel(aplikasiSiswa().container.RepositoriSiswa)
         }
         initializer {
-            EntryViewModel(AplikasiSiswa().container.RepositoriSiswa)
+            EntryViewModel(aplikasiSiswa().container.RepositoriSiswa)
         }
     }
 }
@@ -24,5 +24,5 @@ object PenyediaViewModel {
  * Fungsi ekstensi query untuk objek [Application] dan mengembalikan sebuah instance dari
  *  [AplikasiSiswa]
  */
-fun CreationExtras.AplikasiSiswa():AplikasiSiswa =
+fun CreationExtras.aplikasiSiswa():AplikasiSiswa =
     (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as AplikasiSiswa)
