@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">RoomSiswa</string>
     <string name="entry_siswa">Tambah Siswa</string>
-    <string name="deskripso_no_item">Tidak ada data Siswa</string>
+    <string name="deskripsi_no_item">Tidak ada data Siswa</string>
     <string name="nama">Nama Siswa</string>
     <string name="alamat">Alamat Siswa</string>
     <string name="telpon">Telpon Siswa</string>
