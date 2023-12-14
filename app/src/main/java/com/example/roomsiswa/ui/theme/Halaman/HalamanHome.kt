@@ -1,5 +1,6 @@
 package com.example.roomsiswa.ui.theme.Halaman
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -50,7 +51,8 @@ object DestinasiHome : DestinasiNavigasi {
 fun HomeScreen(
     navigateToItemEntry: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory),
+    onDetailClick: (Int) -> Unit = {}
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -82,7 +84,8 @@ fun HomeScreen(
             itemSiswa = uiStateSiswa.listSiswa,
             modifier = Modifier
                 .padding(innerPadding)
-                .fillMaxSize()
+                .fillMaxSize(),
+            onSiswaClick = onDetailClick
         )
     }
 }
@@ -90,6 +93,7 @@ fun HomeScreen(
 @Composable
 fun BodyHome(
     itemSiswa: List<Siswa>,
+    onSiswaClick: (Int) -> Unit = {},
     modifier: Modifier = Modifier){
 
     Column(
@@ -105,7 +109,9 @@ fun BodyHome(
         } else{
             listSiswa(
                 itemSiswa = itemSiswa,
-                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+                modifier = Modifier
+                    .padding(horizontal = dimensionResource(id = R.dimen.padding_small)),
+                onItemClick = { onSiswaClick(it.id)}
             )
         }
     }
@@ -114,7 +120,8 @@ fun BodyHome(
 @Composable
 fun listSiswa(
     itemSiswa: List<Siswa>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClick: (Int) -> Unit = {}
 ){
     LazyColumn(modifier = Modifier){
         items(items = itemSiswa, key = {it.id}){
@@ -123,6 +130,7 @@ fun listSiswa(
                 siswa = person,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
+                    .clickable { onItemClick(person) }
             )
         }
     }
