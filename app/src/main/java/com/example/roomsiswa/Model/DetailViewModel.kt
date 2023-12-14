@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.roomsiswa.Repository.RepositoriSiswa
 import com.example.roomsiswa.model.DetailSiswa
+import com.example.roomsiswa.model.toDetailSiswa
 import com.example.roomsiswa.model.toSiswa
 import com.example.roomsiswa.ui.theme.Halaman.DetailDestination
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,31 +16,28 @@ import kotlinx.coroutines.flow.stateIn
 
 class DetailViewModel(
     savedStateHandle: SavedStateHandle,
-    private val repositoriSiswa: RepositoriSiswa
-) : ViewModel() {
-
+    private val repositorySiswa: RepositoriSiswa
+): ViewModel(){
     private val siswaId: Int = checkNotNull(savedStateHandle[DetailDestination.siswaIdArg])
-    val uiState: StateFlow<ItemDetailUiState> =
-        repositoriSiswa.getAllSiswaStream(siswaId)
+    val uiState: StateFlow<ItemDetailsUIState> =
+        repositorySiswa.getSiswaStream(siswaId)
             .filterNotNull()
-            .map { ItemDetailUiState(detailSiswa = it.toDetailSiswa())
+            .map {
+                ItemDetailsUIState(detailSiswa = it.toDetailSiswa())
             }.stateIn(
                 scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(TIMEOUT_KILLIS),
-                initialValue = ItemDetailUiState()
+                started = SharingStarted.WhileSubscribed(TIME_MILLIS),
+                initialValue = ItemDetailsUIState()
             )
-
-    suspend fun detailItem() {
-        repositoriSiswa.deleteSiswa(uiState.value.detailSiswa.toSiswa())
+    suspend fun deleteItem(){
+        repositorySiswa.deleteSiswa(uiState.value.detailSiswa.toSiswa())
     }
-
     companion object{
-        private const val TIMEOUT_KILLIS = 5_000L
+        private const val TIME_MILLIS = 5_000L
     }
-
 }
 
-data class ItemDetailUiState(
+data class ItemDetailsUIState(
     val outOfStock: Boolean = true,
-    val detailSiswa: DetailSiswa = DetailSiswa(),
+    val detailSiswa: DetailSiswa = DetailSiswa()
 )
